@@ -97,6 +97,9 @@ function AccessibilityManager(renderer)
    	this.isActive = false;
    	this.isMobileAccessabillity = false;
 
+    this.activeEvent = new Event('accessibilityActive');
+    this.deactivateEvent = new Event('accessibilityDeactive');
+
    	// let listen for tab.. once pressed we can fire up and show the accessibility layer
    	window.addEventListener('keydown', this._onKeyDown, false);
 }
@@ -151,6 +154,9 @@ AccessibilityManager.prototype.activate = function()
 	{
 		this.renderer.view.parentNode.appendChild(this.div);
 	}
+
+    window.dispatchEvent(this.activeEvent);
+
 };
 
 /**
@@ -176,6 +182,8 @@ AccessibilityManager.prototype.deactivate = function()
 	{
 		this.div.parentNode.removeChild(this.div);
 	}
+
+    window.dispatchEvent(this.deactiveEvent, true);
 
 };
 
